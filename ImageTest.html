@@ -1,0 +1,115 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Image Test</title>
+<!--<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/camanjs/3.3.0/caman.full.min.js"></script>
+-->
+<script type="text/javascript" src="CamanJS-4.1.1\dist\caman.full.min.js">
+</script>
+<script>	
+	
+	Caman("#testcanvas", "bubble.jpg", function () {
+		// manipulate image here
+		this.brightness(0).render();
+		});
+		
+	//document.getElementById("myRange").onchange = function() {myFunction()};
+	
+	function myFunction() {
+		
+		Caman("#testcanvas", function () {
+		this.revert(false);
+		});
+		
+		
+		var value = document.getElementById("myRange").value;
+
+		Caman("#testcanvas", function () {
+		// manipulate image here
+		this.brightness(value).render();
+		});
+	};
+		
+	function myContrastFunction() {
+		
+		Caman("#testcanvas", function () {
+		this.revert(false);
+		});
+		
+		
+		var value = document.getElementById("myContrastRange").value;
+
+		Caman("#testcanvas", "bubble.jpg", function () {
+		// manipulate image here
+		this.saturation(value).render();
+		});
+	};
+	
+	function myRotationFunction() {
+		
+		Caman("#testcanvas", function () {
+		this.revert(false);
+		});
+		
+		
+		var value = document.getElementById("myRotationRange").value;
+
+		Caman("#testcanvas", "bubble.jpg", function () {
+		// manipulate image here
+		this.rotate(value)
+		this.render();
+		});
+	};
+	
+	function myRotation2Function() {
+	
+		Caman("#testcanvas", function() {
+		this.revert(false);
+		});
+		
+		var value = document.getElementById("myRotationRange").value;
+		var c = document.getElementById("testCanvas");
+		var ctx=c.getContext("2d");
+		ctx.rotate(value*Math.PI/180);
+		
+		Caman("#testcanvas", "bubble.jpg", function() {
+		this.render();
+		});
+	
+	};
+
+
+
+</script>
+</head>
+<body>	
+
+<canvas id="testcanvas" width="400" height="400" style="border:1px solid #000000;">
+
+</canvas>
+<br>
+<label for="myRange">Brightness</label>
+<input type="range" id="myRange" defaultValue="0" value="0" min="-50" max="50" oninput="myFunction()" onchange="myFunction()" >
+
+
+<button onclick="myFunction()">Brightness</button>
+<br>
+
+<label for="myContrastRange">Saturation</label>
+<input type="range" id="myContrastRange" defaultValue="0" value="0" min="-70" max="70" oninput="myContrastFunction()" onchange="myContrastFunction()">
+
+
+<button onclick="myContrastFunction()">Saturation</button>
+
+<br>
+
+<label for="myRotationRange">Rotation</label>
+<input type="range" id="myRotationRange" defaultValue="0" value="0" min="-100" max="100" oninput="myRotationFunction()" onchange="myRotationFunction()">
+
+
+<button onclick="myRotation2Function()">Rotation</button>
+
+</body>
+</html>
