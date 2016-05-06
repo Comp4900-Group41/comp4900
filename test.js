@@ -8,7 +8,7 @@ window.onload = function() {
 // Function gets uploaded image and converts it to CMYK and displays it
 function handleFiles(e) {
     var ctx = document.getElementById('canvas').getContext('2d');
-    var img = new Image;
+    var img = new Image();
     img.src = URL.createObjectURL(e.target.files[0]);
     img.onload = function() {
     	ctx.clearRect(0,0,1600, 1200);
