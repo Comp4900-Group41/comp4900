@@ -1,0 +1,137 @@
+#mainContent {
+	width:100%;
+	height:1000px;
+}
+
+#content {
+	height:inherit;
+	width: 100%;
+}
+
+#ele1Info, #ele2Info, #ele3Info, #ele4Info, #ele5Info {
+	width: 70px;
+	height: 80px;
+	display: none;
+	position: relative;
+	left: 105px;
+	background-color: #000000;
+	top: -85px;
+}
+
+#pic1, #pic2, #pic3, #pic4, #pic5 {
+	width: inherit;
+	height: inherit;
+
+}
+
+#EditButton1, #DeleteButton1, #EditButton2, #DeleteButton2,
+#EditButton3, #DeleteButton3, #EditButton4, #DeleteButton4,
+#EditButton5, #DeleteButton5 {
+	width: 60px;
+	height: 30px;
+	margin: 5px;
+	display: inline-block;
+}
+
+#Element1, #Element2, #Element3, #Element4, #Element5 {
+	width: 78px;
+	margin: auto;
+	margin-top: 30px;
+	height: 90px;
+	background-color: #ffffff;
+	border-style: solid;
+	border-width: 3px;
+	border-color:#000000;
+}
+
+#Element1 {
+	border-color:#ff0000;
+}
+
+#Element1:hover, #Element2:hover, #Element3:hover, #Element4:hover, #Element5:hover {
+	border-color:#0000ff;
+}
+
+#toolBar {
+	background-color:#000000; 
+	width:60px; 
+	display:none; 
+	margin:0px; 
+	float:left;
+}
+
+#hideToolButton, #tool1 {
+	border-radius:50%;
+	display:block; 
+	margin-top:10px; 
+	margin-bottom:10px;
+	margin-left:auto; 
+	margin-right:auto; 
+	background-color:#000000; 
+	color:#ffffff;
+	border-color:#000000;
+}
+
+#hideToolButton:hover, #tool1:hover {
+	background-color:#555555;
+}
+
+#hideToolButton:focus, #tool1:focus , #toolButton:focus {
+	outline:none;
+}
+
+#toolButton {
+	border-radius:50%;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	float:left;
+	padding-left: 0px;
+	padding-right: 5px;
+}
+
+#leftSection {
+	width:calc(50% - 50px); 
+	height:inherit; 
+	float:left;
+}
+
+#rightSection {
+	width:calc(50% - 50px); 
+	height:inherit; 
+	float:left;
+}
+
+#leftButton {
+	float:right; 
+	border-radius:0px;
+	border-right:none;
+	background-color: #cccccc;
+}
+
+#rightButton {
+	float:left; 
+	border-radius:0px;
+	border-left:none;
+	background-color: #cccccc;
+}
+
+#leftButton:focus, #rightButton:focus {
+	outline: none;
+}
+
+#imageSpace {
+	width:87%; 
+	height:80%; 
+	background-color:#ff0000; 
+	margin-top:50px; 
+	margin-left:auto; 
+	margin-right:auto; 
+	max-width:800px;
+}
+
+#centerBeam {
+	background-color:#cccccc; 
+	width:100px; 
+	height:inherit; 
+	float:left;
+}
