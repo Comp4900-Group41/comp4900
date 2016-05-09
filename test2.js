@@ -28,6 +28,10 @@ window.onclick = function(e) {
 	if(e.target.id != "resultCanvas") {
 		mask = null;
 		var ctx = document.getElementById("resultCanvas").getContext('2d');
+		if(imageInfo != null) {
+			ctx.clearRect(0, 0, imageInfo.width, imageInfo.height);
+			ctx.putImageData(imageInfo.data, 0, 0);
+		}
 	}
 };
 function uploadClick() {
