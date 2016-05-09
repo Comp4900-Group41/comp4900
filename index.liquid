@@ -27,47 +27,69 @@
     padding: 10px;
     width: 600px;
     height:400px;
+   
   }
   .dragme{
-			position:relative;
-			cursor: move;
-		}
+      position:relative;
+      cursor: move;
+    }
   .dragDest{
     border: 1px solid #000;
-  	}
-	#draggable {
-			background-color: #ccc;
-			border: 1px solid #000;
-      		
-		}
+    }
+  #draggable {
+      background-color: #ccc;
+      border: 1px solid #000;
+          
+    }
   
+ #uploadedImage{
+  max-width: 500px;
+   max-height: 500px;
+   min-width: 100px;
+   min-height: 100px;
+ }
 .shirtOverlay { position:relative;
 
-  				z-index: 2;
-  				width: 800px;
-  				height: auto;
-  				opacity: 0.7;
+          z-index: 2;
+          width: 800px;
+          height: auto;
+          opacity: 0.8;
+   pointer-events: none;
   
-				} 
+        } 
+    
+    .clickTarget {
+        position:absolute;
+        top: 80px;
+        left: 100px;
+        z-index: 5;
+      width: 100px;
+        height: 100px;
+      background-color: green;
+
+    }
+    
 .clothESpot1 { position:absolute;
-  			top: 80px;
-  			left: 100px;
-  			z-index: 3;
-			border:2px solid red;
- 			width: 100px;
-  			height: 100px;
-  			background-color: red;
- 			} 
+        top: 80px;
+        left: 100px;
+        z-index: 1;
+      border:2px solid red;
+      width: 100px;
+        height: 100px;
+        background-color: red;
+  
+      } 
     
 .clothESpot2 { position:absolute;
-  			top: 80px;
-  			left: 390px;
-  			z-index: 3;
-			border:2px solid red;
- 			width: 100px;
-  			height: 100px;
-  			background-color: blue;
- 			} 
+        top: 80px;
+        left: 390px;
+        z-index: 1;
+      border:2px solid red;
+      width: 100px;
+        height: 100px;
+        background-color: blue;
+ 
+      } 
 
 </style>  
 </header>
@@ -78,8 +100,8 @@
 <!--<img id="testImage" src="{{ "bcit_logo.jpg" | asset_url }}"alt="your image" />-->
 <div>
 <div>
-	<img id="uploadedImage" class="dragme" src="{{ "bcit_logo.jpg" | asset_url }}" alt="your image" />
-  	<canvas id="previewCanvas" draggable="true" class="dragSource"> </canvas>
+  <img id="uploadedImage"class="dragme" src="{{ "bcit_logo.jpg" | asset_url }}" alt="your image" />
+    <canvas id="previewCanvas" draggable="true" class="dragSource"> </canvas>
 </div>
 
 <div>
@@ -91,17 +113,22 @@
 </div>
 
 <div class=templateDiv>
-	<h2>Template # 1</h2>
-	<img src="{{ "tshirtDiagram.png" | asset_url }}" class="shirtOverlay" />
-  	<canvas class="clothESpot1 dragDest multiPaste1" width="100" height="100"></canvas>
-  	<canvas class="clothESpot2 dragDest multiPaste2" width="100" height="100"></canvas>
+  <h2>Template # 1</h2>
+  <img src="{{ "tshirtDiagram.png" | asset_url }}" class="shirtOverlay" />
+
+    <canvas class="clothESpot1 dragDest multiPaste1" width="100" height="100"></canvas>
+    <canvas class="clothESpot2 dragDest multiPaste2" width="100" height="100"></canvas>
+
+  
 </div>
   
 <div class=templateDiv>
-	<h2>Template # 2</h2>
-	<img src="{{ "tshirtDiagram.png" | asset_url }}" class="shirtOverlay" />
-  	<canvas class="clothESpot1 dragDest multiPaste1" width="100" height="100"></canvas>
-  	<canvas class="clothESpot2 dragDest multiPaste2" width="100" height="100"></canvas>
+  <h2>Template # 2</h2>
+  <img src="{{ "tshirtDiagram.png" | asset_url }}" class="shirtOverlay" />
+
+    <canvas class="clothESpot1 dragDest multiPaste1" width="100" height="100"></canvas>
+    <canvas class="clothESpot2 dragDest multiPaste2" width="100" height="100"></canvas>
+  
 </div>
 </div>
 
@@ -110,25 +137,37 @@
   var startOffsetX;
   var startOffsetY;
   var draggedElement;
+  var uploadedImageScale;
   
  $(document).ready(function () {
 //area selection (for cropping)
-    $('#uploadedImage').imgAreaSelect({onSelectChange: preview });
-
+   var originalWidth = $('#uploadedImage').width;
+   var originalHeight = $('#uploadedImage').height;
+    $('#uploadedImage').imgAreaSelect({onSelectChange: preview,
+                                      imageHeight: originalHeight, 
+                      imageWidth: originalWidth});
+   /*
+   var uploadedImage = $('#uploadedImage');
+   var newImg = new Image();
+    newImg.src = uploadedImage.src;
+   uploadedImageScale = newImg.width / uploadedImage.width;
+*/
   
   $(".dragSource").each(function() {
            this.onmousedown = mousedown;
-			this.ondragstart = dragstart;
+      this.ondragstart = dragstart;
     });
   
   $(".dragDest").each(function() {
            this.ondrop = drop;
-			this.ondragover = allowDrop;
+      this.ondragover = allowDrop;
     });
+
   
 //draw selection on a canvas
 function preview(img, selection) {
-  var canvas = document.getElementById("previewCanvas") ;
+  var canvas = $('#previewCanvas')[0];
+  var selectionSource = $('#uploadedImage')[0];
   var ctx = canvas.getContext("2d");  
   var maxSize = 100;
   var destX = 0;
@@ -139,14 +178,14 @@ function preview(img, selection) {
   canvas.height =  selection.height * scale;
   
   ctx.drawImage(img,
-                selection.x1,
-                selection.y1,
-                selection.width,
-                selection.height,
+                selection.x1 * (img.naturalHeight / img.height),
+                selection.y1 * (img.naturalHeight / img.height),
+                selection.width * (img.naturalHeight / img.height),
+                selection.height * (img.naturalHeight / img.height),
                 destX,
                 destY, 
                 selection.width * scale,
-  				selection.height * scale
+          selection.height * scale
                );                       
 }
 
@@ -183,7 +222,7 @@ function mousedown(ev) {
 
 function dragstart(ev) {
     ev.dataTransfer.setData("Text", ev.target.id);
-  	draggedElement = ev.target;
+    draggedElement = ev.target;
 }
 
 function drop(ev) {
@@ -196,27 +235,27 @@ function drop(ev) {
   var multiPasteClasses = ["multiPaste1", "multiPaste2"];
   for (var i = 0; i < multiPasteClasses.length; i++) {
    
-  	if($(canvas).hasClass(multiPasteClasses[i])){
-    	$("." + multiPasteClasses[i]).each(function() {
-			drawCopiedImage(this, ev);
-		});
+    if($(canvas).hasClass(multiPasteClasses[i])){
+      $("." + multiPasteClasses[i]).each(function() {
+      drawCopiedImage(this, ev);
+    });
     }
   
   }
-		
+    
   
 }
   //draws copied image on the canvas
   function drawCopiedImage(canvas, ev){
    var ctx = canvas.getContext("2d");
 
-	var leftOffset = ev.pageX - this.offsetLeft 
-	var topOffset = ev.pageY - this.offsetTop
-	var dropX = leftOffset - startOffsetX;
-	var dropY = topOffset - startOffsetY
-	var id = ev.dataTransfer.getData("Text");
+  var leftOffset = ev.pageX - this.offsetLeft 
+  var topOffset = ev.pageY - this.offsetTop
+  var dropX = leftOffset - startOffsetX;
+  var dropY = topOffset - startOffsetY
+  var id = ev.dataTransfer.getData("Text");
 
-  	ctx.drawImage(draggedElement, 0, 0, canvas.offsetWidth, canvas.offsetHeight);
+    ctx.drawImage(draggedElement, 0, 0, canvas.offsetWidth, canvas.offsetHeight);
     //drop anywhere
    // ctx.drawImage(dropElement, dropX, dropY);
   }
@@ -227,8 +266,8 @@ function drop(ev) {
     ev.preventDefault();
     
     var canvas = document.createElement('canvas');
-	var element = document.getElementById("freeDropZone");
-	element.appendChild(canvas);
+  var element = document.getElementById("freeDropZone");
+  element.appendChild(canvas);
     
     //var canvas = document.getElementById("c1")
     
@@ -243,52 +282,51 @@ ctx.drawImage(dropElement, 0, 0);
   //old dragging stuff
   /*
 function startDrag(e) {
-				// determine event object
-				if (!e) {
-					var e = window.event;
-				}
+        // determine event object
+        if (!e) {
+          var e = window.event;
+        }
                 if(e.preventDefault) e.preventDefault();
 
-				// IE uses srcElement, others use target
-				targ = e.target ? e.target : e.srcElement;
+        // IE uses srcElement, others use target
+        targ = e.target ? e.target : e.srcElement;
 
-				if (targ.className != 'dragme') {return};
-				// calculate event X, Y coordinates
-					offsetX = e.clientX;
-					offsetY = e.clientY;
+        if (targ.className != 'dragme') {return};
+        // calculate event X, Y coordinates
+          offsetX = e.clientX;
+          offsetY = e.clientY;
 
-				// assign default values for top and left properties
-				if(!targ.style.left) { targ.style.left='0px'};
-				if (!targ.style.top) { targ.style.top='0px'};
+        // assign default values for top and left properties
+        if(!targ.style.left) { targ.style.left='0px'};
+        if (!targ.style.top) { targ.style.top='0px'};
 
-				// calculate integer values for top and left 
-				// properties
-				coordX = parseInt(targ.style.left);
-				coordY = parseInt(targ.style.top);
-				drag = true;
+        // calculate integer values for top and left 
+        // properties
+        coordX = parseInt(targ.style.left);
+        coordY = parseInt(targ.style.top);
+        drag = true;
 
-				// move div element
-					document.onmousemove=dragDiv;
+        // move div element
+          document.onmousemove=dragDiv;
                 return false;
-				
-			}
-			function dragDiv(e) {
-				if (!drag) {return};
-				if (!e) { var e= window.event};
-				// var targ=e.target?e.target:e.srcElement;
-				// move div element
-				targ.style.left=coordX+e.clientX-offsetX+'px';
-				targ.style.top=coordY+e.clientY-offsetY+'px';
-				return false;
-			}
-			function stopDrag() {
-				drag=false;
-			}
-			window.onload = function() {
-				document.onmousedown = startDrag;
-				document.onmouseup = stopDrag;
-			}
+        
+      }
+      function dragDiv(e) {
+        if (!drag) {return};
+        if (!e) { var e= window.event};
+        // var targ=e.target?e.target:e.srcElement;
+        // move div element
+        targ.style.left=coordX+e.clientX-offsetX+'px';
+        targ.style.top=coordY+e.clientY-offsetY+'px';
+        return false;
+      }
+      function stopDrag() {
+        drag=false;
+      }
+      window.onload = function() {
+        document.onmousedown = startDrag;
+        document.onmouseup = stopDrag;
+      }
             */
 </script>
-
 
