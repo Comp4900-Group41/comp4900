@@ -1,5 +1,4 @@
 window.onload = function() {
-    colorThreshold = 50;
     blurRadius = 5;
     simplifyTolerant = 0;
     simplifyCount = 30;
@@ -12,18 +11,23 @@ window.onload = function() {
     downPoint = null;
     img = null;
     allowDraw = false;
+
+    slider = document.getElementById("thresSlider");
+
+    slider.addEventListener("change", function() {
+    	currentThreshold = slider.value;
+    	showThreshold();
+    })
+    colorThreshold = slider.value = 50;
     currentThreshold = colorThreshold;
-    
     showThreshold();
-    document.getElementById("blurRadius").value = blurRadius;
+    //document.getElementById("blurRadius").value = blurRadius;
     setInterval(function () { hatchTick(); }, 300);
 };
 window.onclick = function(e) {
 	if(e.target.id != "resultCanvas") {
 		mask = null;
 		var ctx = document.getElementById("resultCanvas").getContext('2d');
-		ctx.clearRect(0, 0, imageInfo.width, imageInfo.height);
-		ctx.putImageData(imageInfo.data, 0, 0);
 	}
 };
 function uploadClick() {
@@ -84,7 +88,7 @@ function onMouseDown(e) {
     }
     else allowDraw = false;
 };
-/*function onMouseMove(e) {
+function onMouseMove(e) {
     if (allowDraw) {
         var p = getMousePosition(e);
         if (p.x != downPoint.x || p.y != downPoint.y) {
@@ -95,18 +99,18 @@ function onMouseDown(e) {
                 ady = Math.abs(dy),
                 sign = adx > ady ? dx / adx : dy / ady;
             sign = sign < 0 ? sign / 5 : sign / 3;
-            var thres = Math.min(Math.max(colorThreshold + Math.floor(sign * len), 1), 255);
+            //var thres = Math.min(Math.max(colorThreshold + Math.floor(sign * len), 1), 255);
             //var thres = Math.min(colorThreshold + Math.floor(len / 3), 255);
-            if (thres != currentThreshold) {
+            /*if (thres != currentThreshold) {
                 currentThreshold = thres;
                 drawMask(downPoint.x, downPoint.y);
-            }
+            }*/
         }
     }
-};*/
+};
 function onMouseUp(e) {
     allowDraw = false;
-    currentThreshold = colorThreshold;
+    //currentThreshold = colorThreshold;
 };
 function showThreshold() {
     document.getElementById("threshold").innerHTML = "Threshold: " + currentThreshold;
