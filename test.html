@@ -2,215 +2,72 @@
 <html>
 <head>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="comp4900-Denis/jquery.imgareaselect-0.9.10/css/imgareaselect-default.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script type="text/javascript" src="comp4900-Denis\jquery.imgareaselect-0.9.10\scripts\jquery.imgareaselect.pack.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="magic-wand-min.js"></script>
+	<script type="text/javascript" src="test.js"></script>
 	<link rel="stylesheet" type="text/css" href="test.css">
 	<script>
-	var toolFlag = false;
-	var leftPercent = 0.5;
-	var rightPercent = 0.5;
-	var dragOrclick = true;
-	var selected = 0;
-	$(document).ready(function() {
-		var item = 0;
-		var item2 = 0;
-		$("#leftButton").click(function() {
-			if (item == 0) {
-				item2 = 1; item = 2;
-				rightPercent = 0.8; leftPercent = 0.2;
-			} else if (item == 1) {
-				item2 = 0; item = 0;
-				rightPercent = 0.5; leftPercent = 0.5;
-			}
-			dragOrclick = false;
-			$(window).trigger('resize');
-		});
-		$("#rightButton").click(function() {
-			if (item2 == 0) {
-				item = 1;item2 = 2;
-				rightPercent = 0.2; leftPercent = 0.8;
-			} else if (item2 == 1) {
-				item = 0; item2 = 0;
-				rightPercent = 0.5; leftPercent = 0.5;
-			}
-			dragOrclick = false;
-			$(window).trigger('resize');
-		});
-		$("#toolButton").click(function() {
-			toolFlag = true;
-			$(this).fadeOut();
-			$("#content").stop().animate({paddingLeft: 60},
-				{step: function() {
-					$(window).trigger('resize');
-				}
-			})
-			.promise().done(function() {
-				$("#toolBar").slideDown();
-			});
-		});
-		$("#hideToolButton").click(function() {
-			toolFlag = false;
-			$("#toolBar").slideUp( function() {
-				$("#toolButton").fadeIn();
-				$("#content").stop().animate({paddingLeft: 0},
-					{step: function() {
-						$(window).trigger('resize');
-					}
-				});
-			});
-			
-		});
-		function setToBlack() {
-			$("#Element1").css({borderColor:"#000000"});
-			$("#Element2").css({borderColor:"#000000"});
-			$("#Element3").css({borderColor:"#000000"});
-			$("#Element4").css({borderColor:"#000000"});
-			$("#Element5").css({borderColor:"#000000"});
-		}
-		$("#Element1")
-			.click(function() {
-				selected = 0;
-				setToBlack();
-				$(this).css({borderColor:"#ff0000"});
-			})
-			.hover(function() {
-				$("#ele1Info").stop().fadeIn();
-				$("#ele1Info").css({marginBottom:"-80px"});
-				$(this).css({borderColor:"#0000ff"});
-			}, function() {
-				$("#ele1Info").stop().fadeOut();
-				if (selected == 0) 
-					$(this).css({borderColor:"#ff0000"});
-				else
-					$(this).css({borderColor:"#000000"});
-		});
-		$("#Element2")
-			.click(function() {
-				selected = 1;
-				setToBlack();
-				$(this).css({borderColor:"#ff0000"});
-			})
-			.hover(function() {
-				$("#ele2Info").stop().fadeIn();
-				$("#ele2Info").css({marginBottom:"-80px"});
-				$(this).css({borderColor:"#0000ff"});
-			}, function() {
-				$("#ele2Info").stop().fadeOut();
-				if (selected == 1) {
-					$(this).css({borderColor:"#ff0000"});
-				} else
-					$(this).css({borderColor:"#000000"});
-		});
-		$("#Element3")
-			.click(function() {
-				selected = 2;
-				setToBlack();
-				$(this).css({borderColor:"#ff0000"});
-			})
-			.hover(function() {
-				$("#ele3Info").stop().fadeIn();
-				$("#ele3Info").css({marginBottom:"-80px"});
-				$(this).css({borderColor:"#0000ff"});
-			}, function() {
-				$("#ele3Info").stop().fadeOut();
-				if (selected == 2) {
-					$(this).css({borderColor:"#ff0000"});
-				} else
-					$(this).css({borderColor:"#000000"});
-		});
-		$("#Element4")
-			.click(function() {
-				selected = 3;
-				setToBlack();
-				$(this).css({borderColor:"#ff0000"});
-			})
-			.hover(function() {
-				$("#ele4Info").stop().fadeIn();
-				$("#ele4Info").css({marginBottom:"-80px"});
-				$(this).css({borderColor:"#0000ff"});
-			}, function() {
-				$("#ele4Info").stop().fadeOut();
-				if (selected == 3) {
-					$(this).css({borderColor:"#ff0000"});
-				} else
-					$(this).css({borderColor:"#000000"});
-
-		});
-		$("#Element5")
-			.click(function() {
-				selected = 4;
-				setToBlack();
-				$(this).css({borderColor:"#ff0000"});
-			})
-			.hover(function() {
-				$("#ele5Info").stop().fadeIn();
-				$("#ele5Info").css({marginBottom:"-80px"});
-				$(this).css({borderColor:"#0000ff"});
-			}, function() {
-				$("#ele5Info").stop().fadeOut();
-				if (selected == 4) {
-					$(this).css({borderColor:"#ff0000"});
-				} else
-					$(this).css({borderColor:"#000000"});
-		});
-	});
-	$(window).resize(function() {
-		
-		var Size = parseFloat($("#content").width());
-		if (dragOrclick) {
-			$("#rightSection").stop().css({width:(Size * rightPercent) - 50.1});
-			$("#leftSection").stop().css({width:(Size * leftPercent) - 50});
-		} else {
-			$("#rightSection").stop().animate({width:(Size * rightPercent) - 50.1});
-			$("#leftSection").stop().animate({width:(Size * leftPercent) - 50});
-			dragOrclick = true;
-		}
-	});
-	</script>
+	
+	
+</script>
 </head>
 <body>
 	<div id="mainContent">
 		<div id="toolBar">
 			<button id="hideToolButton" type="button" class="btn btn-default">Hide</button>
-			<button id="tool1" type="button" class="btn btn-default"><img src="crop2.png" width="100%"></button>
+			<button id="tool1" type="button" class="btn btn-default"><img src="img/crop2.png" width="100%"></button>
+			<button id="tool2" type="button" class="btn btn-default"><img src="img/MagicWand2.png" width="100%"></button>
 		</div>
+		<form id="form1" runat="server">
+			<input type='file' id="imgInp" />
+		</form>
 		<div id="content">
 			<div id="leftSection">
 				<button id="leftButton" type="button" class="btn btn-default btn-sm">&#9668;</button>
 				<button id="toolButton" type="button" class="btn btn-default">Tools</button>
 				<div id="imageSpace">
-					<img src="Microsoft-Cloud-Azure.jpg" width="100%" style="max-height:100%">
+					<img id="uploadedImage" class="dragme" src="img/Child drawing-5.png" width="100%" style="max-height:100%">
+					<canvas id="previewCanvas" draggable="true" class="dragSource"></canvas>
 				</div>
 			</div>
 			<div id="centerBeam">
-				<div id="Element1"><canvas id="pic1"></canvas></div>
-					<div id="ele1Info">
-						<button id="EditButton1" type="button" class="btn btn-default btn-sm">Edit</button>
-						<button id="DeleteButton1" type="button" class="btn btn-default btn-sm">Delete</button>
-					</div>
-				<div id="Element2"><canvas id="pic2"></canvas></div>
-					<div id="ele2Info">
-						<button id="EditButton2" type="button" class="btn btn-default btn-sm">Edit</button>
-						<button id="DeleteButton2" type="button" class="btn btn-default btn-sm">Delete</button>
-					</div>
-				<div id="Element3"><canvas id="pic3"></canvas></div>
-					<div id="ele3Info">
-						<button id="EditButton3" type="button" class="btn btn-default btn-sm">Edit</button>
-						<button id="DeleteButton3" type="button" class="btn btn-default btn-sm">Delete</button>
-					</div>
-				<div id="Element4"><canvas id="pic4"></canvas></div>
-					<div id="ele4Info">
-						<button id="EditButton4" type="button" class="btn btn-default btn-sm">Edit</button>
-						<button id="DeleteButton4" type="button" class="btn btn-default btn-sm">Delete</button>
-					</div>
-				<div id="Element5"><canvas id="pic5"></canvas></div>
-					<div id="ele5Info">
-						<button id="EditButton5" type="button" class="btn btn-default btn-sm">Edit</button>
-						<button id="DeleteButton5" type="button" class="btn btn-default btn-sm">Delete</button>
-					</div>
+				<div id="Element1"><canvas id="pic1" class="dragDest dragSource" draggable="true"></canvas></div>
+				<div id="ele1Info">
+					<button id="EditButton1" type="button" class="btn btn-default btn-sm">Edit</button>
+					<button id="DeleteButton1" type="button" class="btn btn-default btn-sm">Delete</button>
+				</div>
+				<div id="Element2"><canvas id="pic2" class="dragDest dragSource" draggable="true"></canvas></div>
+				<div id="ele2Info">
+					<button id="EditButton2" type="button" class="btn btn-default btn-sm">Edit</button>
+					<button id="DeleteButton2" type="button" class="btn btn-default btn-sm">Delete</button>
+				</div>
+				<div id="Element3"><canvas id="pic3" class="dragDest dragSource" draggable="true"></canvas></div>
+				<div id="ele3Info">
+					<button id="EditButton3" type="button" class="btn btn-default btn-sm">Edit</button>
+					<button id="DeleteButton3" type="button" class="btn btn-default btn-sm">Delete</button>
+				</div>
+				<div id="Element4"><canvas id="pic4" class="dragDest dragSource" draggable="true"></canvas></div>
+				<div id="ele4Info">
+					<button id="EditButton4" type="button" class="btn btn-default btn-sm">Edit</button>
+					<button id="DeleteButton4" type="button" class="btn btn-default btn-sm">Delete</button>
+				</div>
+				<div id="Element5"><canvas id="pic5" class="dragDest dragSource" draggable="true"></canvas></div>
+				<div id="ele5Info">
+					<button id="EditButton5" type="button" class="btn btn-default btn-sm">Edit</button>
+					<button id="DeleteButton5" type="button" class="btn btn-default btn-sm">Delete</button>
+				</div>
 			</div>
 			<div id="rightSection" style="">
 				<button id="rightButton" type="button" class="btn btn-default btn-sm">&#9658;</button>
+				<div class="templateDiv">
+					<h2>Template # 1</h2>
+					<img src="img/tshirtDiagram.png" class="shirtOverlay" />
+					<canvas class="clothESpot1 dragDest multiPaste1" width="100" height="100"></canvas>
+					<canvas class="clothESpot2 dragDest multiPaste2" width="100" height="100"></canvas>
+				</div>
 			</div>
 		</div>
 	</div>
