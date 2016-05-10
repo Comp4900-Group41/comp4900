@@ -2,7 +2,6 @@ var toolFlag = false;
 var leftPercent = 0.5;
 var rightPercent = 0.5;
 var dragOrclick = true;
-var selected = 0;  
 var draggedElement;
 $(document).ready(function() {
 	var item = 0;
@@ -56,93 +55,20 @@ $(document).ready(function() {
 		});
 		
 	});
-	$("#Element1, #Element2, #Element3, #Element4, #Element5")
-		.click(function() {
-			setToBlack();
-			switch(this.id) {
-				case "Element1":
-					selected = 0;
-					break;
-				case "Element2":
-					selected = 1;
-					break;
-				case "Element3":
-					selected = 2;
-					break;
-				case "Element4":
-					selected = 3;
-					break;
-				case "Element5":
-					selected = 4;
-					break;
-			}
-			$(this).css({borderColor:"#ff0000"});
-		});
-	$("#Element1").hover(function() {
-			$("#ele1Info").stop().fadeIn();
-			$("#ele1Info").css({marginBottom:"-80px"});
-			$(this).css({borderColor:"#0000ff"});
+	$("#Element1, #Element2, #Element3, #Element4, #Element5").hover(function() {
+			$(this.id).css({borderColor:"#0000ff"});
 		}, function() {
-			$("#ele1Info").stop().fadeOut();
-			if (selected == 0) 
-				$(this).css({borderColor:"#ff0000"});
-			else
-				$(this).css({borderColor:"#000000"});
-	});
-	$("#Element2").hover(function() {
-			$("#ele2Info").stop().fadeIn();
-			$("#ele2Info").css({marginBottom:"-80px"});
-			$(this).css({borderColor:"#0000ff"});
-		}, function() {
-			$("#ele2Info").stop().fadeOut();
-			if (selected == 1) {
-				$(this).css({borderColor:"#ff0000"});
-			} else
-				$(this).css({borderColor:"#000000"});
-	});
-	$("#Element3").hover(function() {
-			$("#ele3Info").stop().fadeIn();
-			$("#ele3Info").css({marginBottom:"-80px"});
-			$(this).css({borderColor:"#0000ff"});
-		}, function() {
-			$("#ele3Info").stop().fadeOut();
-			if (selected == 2) {
-				$(this).css({borderColor:"#ff0000"});
-			} else
-				$(this).css({borderColor:"#000000"});
-	});
-	$("#Element4").hover(function() {
-			$("#ele4Info").stop().fadeIn();
-			$("#ele4Info").css({marginBottom:"-80px"});
-			$(this).css({borderColor:"#0000ff"});
-		}, function() {
-			$("#ele4Info").stop().fadeOut();
-			if (selected == 3) {
-				$(this).css({borderColor:"#ff0000"});
-			} else
-				$(this).css({borderColor:"#000000"});
-
-	});
-	$("#Element5").hover(function() {
-			$("#ele5Info").stop().fadeIn();
-			$("#ele5Info").css({marginBottom:"-80px"});
-			$(this).css({borderColor:"#0000ff"});
-		}, function() {
-			$("#ele5Info").stop().fadeOut();
-			if (selected == 4) {
-				$(this).css({borderColor:"#ff0000"});
-			} else
-				$(this).css({borderColor:"#000000"});
+			$(this.id).css({borderColor:"#000000"});
 	});
 	
 	$("#tool1").click(function() {
 		$('#uploadedImage').imgAreaSelect({onSelectChange: preview });
+		$("#previewCanvas").attr("draggable", "true");
 	});
 	$("#tool2").click(function() {
 		$('#uploadedImage').imgAreaSelect({remove:true});
+		$("#previewCanvas").attr("draggable", "false");
 	});
-	
-	//$('#uploadedImage').imgAreaSelect({onSelectChange: preview });
 
 	$(".dragSource").each(function() {
 		this.onmousedown = mousedown;
@@ -156,8 +82,9 @@ $(document).ready(function() {
 
 	//draw selection on a canvas
 	function preview(img, selection) {
-		var canvas = document.getElementById("previewCanvas") ;
-		var ctx = canvas.getContext("2d");
+		var canvas = $('#previewCanvas')[0];
+		var selectionSource = $('#uploadedImage')[0];
+		var ctx = canvas.getContext("2d");  
 		var maxSize = 200;
 		var destX = 0;
 		var destY = 0;
@@ -167,10 +94,10 @@ $(document).ready(function() {
 		canvas.height =  selection.height * scale;
 		  
 		ctx.drawImage(img,
-				selection.x1,
-				selection.y1,
-				selection.width,
-				selection.height,
+				selection.x1 * (img.naturalHeight / img.height),
+				selection.y1 * (img.naturalHeight / img.height),
+				selection.width * (img.naturalHeight / img.height),
+				selection.height * (img.naturalHeight / img.height),
 				destX,
 				destY, 
 				selection.width * scale,
@@ -232,7 +159,9 @@ function drop(ev) {
 	ev.preventDefault();
 	  
 	var canvas = ev.target;
+
 	var canvasId = $(canvas).id;
+	console.log(canvas);
 	drawCopiedImage(canvas, ev); 
 	//loops through multipaste elements and draws image on all of them
 	var multiPasteClasses = ["multiPaste1", "multiPaste2"];
@@ -248,12 +177,5 @@ function drop(ev) {
 //draws copied image on the canvas
 function drawCopiedImage(canvas, ev){
 	var ctx = canvas.getContext("2d");
-
-	var leftOffset = ev.pageX - this.offsetLeft 
-	var topOffset = ev.pageY - this.offsetTop
-	var dropX = leftOffset - startOffsetX;
-	var dropY = topOffset - startOffsetY
-	var id = ev.dataTransfer.getData("Text");
-	
-	ctx.drawImage(draggedElement, 0, 0, canvas.offsetWidth, canvas.offsetHeight);
+	ctx.drawImage(draggedElement, 0, 0, canvas.width, canvas.height);
 }

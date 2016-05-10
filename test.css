@@ -1,6 +1,6 @@
 #mainContent {
 	width:100%;
-	height:1000px;
+	height:700px;
 }
 
 #content {
@@ -8,20 +8,10 @@
 	width: 100%;
 }
 
-#ele1Info, #ele2Info, #ele3Info, #ele4Info, #ele5Info {
-	width: 70px;
-	height: 80px;
-	display: none;
-	position: relative;
-	left: 105px;
-	background-color: #000000;
-	top: -85px;
-	z-index: 5;
-}
-
 #pic1, #pic2, #pic3, #pic4, #pic5 {
-	width: inherit;
-	height: inherit;
+	width: 74px;
+	height: 84px;
+	margin-top: -70px;
 
 }
 
@@ -35,18 +25,17 @@
 }
 
 #Element1, #Element2, #Element3, #Element4, #Element5 {
-	width: 78px;
+	width: 80px;
 	margin: auto;
 	margin-top: 30px;
 	height: 90px;
-	background-color: #ffffff;
-	border-style: solid;
-	border-width: 3px;
-	border-color:#000000;
-}
-
-#Element1 {
-	border-color:#ff0000;
+	background-color: #cccccc;
+	border: 3px solid black;
+	text-align: center;
+	color: #777777;
+	font-size: 24px;
+	font-weight: bold;
+	padding-top: 25px;
 }
 
 #Element1:hover, #Element2:hover, #Element3:hover, #Element4:hover, #Element5:hover {
@@ -86,7 +75,7 @@
 	border-top-left-radius: 0px;
 	border-bottom-left-radius: 0px;
 	float:left;
-	background-color: #cccccc;
+	background-color: #999999;
 	padding-left: 0px;
 	padding-right: 5px;
 }
@@ -108,7 +97,7 @@
 	border-radius:0px;
 	border-right:none;
 	border-top:none;
-	background-color: #cccccc;
+	background-color: #999999;
 }
 
 #rightButton {
@@ -116,7 +105,7 @@
 	border-radius:0px;
 	border-left:none;
 	border-top:none;
-	background-color: #cccccc;
+	background-color: #999999;
 }
 
 #leftButton:focus, #rightButton:focus {
@@ -125,14 +114,14 @@
 
 #imageSpace {
 	width:87%; 
-	margin-top:150px; 
+	margin-top:50px; 
 	margin-left:auto; 
 	margin-right:auto; 
 	max-width:800px;
 }
 
 #centerBeam {
-	background-color:#cccccc; 
+	background-color:#999999; 
 	width:100px; 
 	height:inherit; 
 	float:left;
@@ -141,6 +130,20 @@
 #draggable {
 	background-color: #ccc;
 	border: 1px solid #000;
+}
+
+#previewCanvas {
+	margin-left:auto;
+	margin-right:auto;
+	border: 2px solid black;
+	margin-top: 5px;
+	display: block;
+	max-width: 100%;
+}
+
+#preview {
+	margin-bottom: 0px;
+	text-align: center;
 }
 
 .templateDiv{

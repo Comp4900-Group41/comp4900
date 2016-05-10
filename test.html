@@ -9,10 +9,6 @@
 	<script type="text/javascript" src="magic-wand-min.js"></script>
 	<script type="text/javascript" src="test.js"></script>
 	<link rel="stylesheet" type="text/css" href="test.css">
-	<script>
-	
-	
-</script>
 </head>
 <body>
 	<div id="mainContent">
@@ -30,40 +26,21 @@
 				<button id="toolButton" type="button" class="btn btn-default">Tools</button>
 				<div id="imageSpace">
 					<img id="uploadedImage" class="dragme" src="img/Child drawing-5.png" width="100%" style="max-height:100%">
-					<canvas id="previewCanvas" draggable="true" class="dragSource"></canvas>
+					<h2 id="preview">Preview:</h2>
+					<canvas id="previewCanvas" draggable="false" class="dragSource"></canvas>
 				</div>
 			</div>
 			<div id="centerBeam">
-				<div id="Element1"><canvas id="pic1" class="dragDest dragSource" draggable="true"></canvas></div>
-				<div id="ele1Info">
-					<button id="EditButton1" type="button" class="btn btn-default btn-sm">Edit</button>
-					<button id="DeleteButton1" type="button" class="btn btn-default btn-sm">Delete</button>
-				</div>
-				<div id="Element2"><canvas id="pic2" class="dragDest dragSource" draggable="true"></canvas></div>
-				<div id="ele2Info">
-					<button id="EditButton2" type="button" class="btn btn-default btn-sm">Edit</button>
-					<button id="DeleteButton2" type="button" class="btn btn-default btn-sm">Delete</button>
-				</div>
-				<div id="Element3"><canvas id="pic3" class="dragDest dragSource" draggable="true"></canvas></div>
-				<div id="ele3Info">
-					<button id="EditButton3" type="button" class="btn btn-default btn-sm">Edit</button>
-					<button id="DeleteButton3" type="button" class="btn btn-default btn-sm">Delete</button>
-				</div>
-				<div id="Element4"><canvas id="pic4" class="dragDest dragSource" draggable="true"></canvas></div>
-				<div id="ele4Info">
-					<button id="EditButton4" type="button" class="btn btn-default btn-sm">Edit</button>
-					<button id="DeleteButton4" type="button" class="btn btn-default btn-sm">Delete</button>
-				</div>
-				<div id="Element5"><canvas id="pic5" class="dragDest dragSource" draggable="true"></canvas></div>
-				<div id="ele5Info">
-					<button id="EditButton5" type="button" class="btn btn-default btn-sm">Edit</button>
-					<button id="DeleteButton5" type="button" class="btn btn-default btn-sm">Delete</button>
-				</div>
+				<div id="Element1">E1<canvas id="pic1" class="dragDest dragSource" draggable="true"></canvas></div>
+				<div id="Element2">E2<canvas id="pic2" class="dragDest dragSource" draggable="true"></canvas></div>
+				<div id="Element3">E3<canvas id="pic3" class="dragDest dragSource" draggable="true"></canvas></div>
+				<div id="Element4">E4<canvas id="pic4" class="dragDest dragSource" draggable="true"></canvas></div>
+				<div id="Element5">E5<canvas id="pic5" class="dragDest dragSource" draggable="true"></canvas></div>
 			</div>
 			<div id="rightSection" style="">
 				<button id="rightButton" type="button" class="btn btn-default btn-sm">&#9658;</button>
 				<div class="templateDiv">
-					<h2>Template # 1</h2>
+					<h2>Template #1</h2>
 					<img src="img/tshirtDiagram.png" class="shirtOverlay" />
 					<canvas class="clothESpot1 dragDest multiPaste1" width="100" height="100"></canvas>
 					<canvas class="clothESpot2 dragDest multiPaste2" width="100" height="100"></canvas>
